@@ -1,0 +1,137 @@
+﻿ <!--inyeccion para la funcionalidad del boton salir de usuarios-->
+@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor httpAcc
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - TextToSpeechFrontEnd</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    
+
+     <!--Assets agregados en el head del html-->
+ <link rel="stylesheet" href="https://cdn.datatables.net/1.10.16/css/jquery.dataTables.min.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css" />
+ <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/css/toastr.min.css" />
+
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/3.0.3/normalize.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans|Oswald|PT+Sans" rel="stylesheet">
+
+ <link rel="stylesheet" href="~/css/site.css" />  
+</head>
+<body>
+    <header>
+        <nav class="navbar sticky-top navbar-expand-sm navbar-toggleable-sm navbar-light border-bottom box-shadow mb-3 " style="background-color: #353535;">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img class="img-fluid" src="~/Images/TextA.png" alt="" width="50" /> </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                        </li>
+                        <!--Funcionalidad para que los botones solo puedan verse cuando el usuario esta autenticado-->
+                         @if (User.Identity.IsAuthenticated)
+                        {
+                            <!--Boton TextToSpeech apuntara al controlador TextToSpeech su vista index-->
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="TextToSpeech" asp-action="Index">TextToSpeech</a>
+                            </li>
+                            <!--Boton Usuarios apuntara al controlador categorias su vista index-->
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuarios</a>
+                            </li>
+                        }
+
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <!--Boton y funcionalidad Salir-->
+                    <ul class="navbar-nav">
+                        @if (httpAcc.HttpContext.Session.GetString("JWToken") != null && httpAcc.HttpContext.Session.GetString("JWToken").ToString().Length > 0)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Logout">Salir</a>
+                            </li>
+                        }
+                        else
+                        { <!--Botones de Acceder, Registro-->                   
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Login">Acceder</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-light" asp-area="" asp-controller="Home" asp-action="Registro">Registro</a>
+                        </li>
+                        }
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="jumbotron jumbotron-fluid">
+        <div class="container-fluid">
+            <img class="img-fluid" src="~/Images/TextSpeech.jpg"  />
+        </div>
+    </div>
+
+
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <!--footer-->  
+    <footer class="site-footer">
+        <div class="contenedor clearfix">
+            <div class="footer-informacion">
+                <h3>Sobre <span>Text To Speech</span></h3>
+                <p>Mejora las interacciones con los clientes con respuestas inteligentes y realistas.
+                    Involucra a los usuarios con la interfaz de usuario de voz en sus dispositivos y aplicaciones.
+                    Personaliza su comunicación en función de las preferencias de voz e idioma del usuario.
+                </p>
+            </div>
+            <div class="ultimos-tweets">
+                <h3>Últimos <span>Repositorios</span></h3>
+                <a href="https://github.com/cdchinchia/APIPELICULAS" target="_blank">API Películas by cdchinchia</a>                
+            </div>
+            <div class="menu">
+                <h3>Redes <span>sociales</span></h3>
+                <nav class="redes-sociales">
+                    <a href="https://www.facebook.com/kchinchia" target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                    <a href="https://www.linkedin.com/in/cristian-david-chinchia-hinojoza/" target="_blank"><i class="fa fa-linkedin" aria-hidden="true"></i></a>
+                    <a href="https://github.com/cdchinchia" target="_blank"><i class="fa fa-github" aria-hidden="true"></i></a>
+                    <a href="https://www.youtube.com/channel/UCthHjAJZvWN8NoOq0ahG0Bw" target="_blank"><i class="fa fa-youtube-play" aria-hidden="true"></i></a>
+                    <a href="https://www.instagram.com/guaco11/" target="_blank"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </nav>
+            </div>
+        </div>
+        <p class="copyright">
+            &copy; 2022 - TextToSpeechFrontEnd - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>  <a class="float-right" href="#"><i class="fa fa-rocket" aria-hidden="true"></i> Ir Arriba</a>      
+        </p>        
+        </footer>        
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <!--Assets JS agregados al final antes del cierre del body-->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+
+ <!--Pagina Maestra-->

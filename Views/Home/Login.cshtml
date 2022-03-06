@@ -1,0 +1,41 @@
+﻿@model TextToSpeechFrontEnd.Models.UsuarioM
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1 class="text-center">Acceso de usuarios</h1>
+<!--Muestra la alerta del Login-->
+<div class="row mt-4">
+    <div class="col-sm-12">
+        @if (TempData["alert"] != null)
+        {
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            <h5><strong>@TempData["alert"]</strong></h5>
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        }
+    </div>
+</div>
+
+<div class="row"><!--se crea fila de clase row-->
+    <div class="col-sm-6 offset-3"><!--sistema de columnas. que se centre y ocupe 6 columnas y con offset de 3-->
+        <form asp-action="Login"> <!--Buscar el metodo Login en el controlador Home-->
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div><!--Validacion del modelo-->
+            <div class="form-group">
+                <label for="Usuario">Usuario:</label>
+                <input type="text" asp-for="Usuario" class="form-control" placeholder="Ingresa el usuario" /><!--input de tipo text que mapea usuario-->
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label for="contrasenia">Contraseña:</label>
+                <input type="password" asp-for="Password" class="form-control" placeholder="Ingresa la contraseña" />
+                 <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <button type="submit" class="btn btn-primary w-100">INGRESAR</button><!--Boton que envia los datos-->
+        </form>
+    </div>
+</div>
+

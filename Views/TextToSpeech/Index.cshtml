@@ -1,0 +1,40 @@
+﻿@{
+    ViewData["Title"] = "Lista de Audios";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container p-4"><!--se crea contenedor-->
+    <div class="row"><!--se crea fila de clase row-->
+        <div class="col-9"><!--de las 12 columnas que permite boostrap por cada fila, se ocuparan 6-->
+            <h2 class="text-primary">Lista de Audios</h2><!-- text-primary da color azul.-->
+        </div>
+        <div class="col-3"><!--de las 12 columnas que permite boostrap por cada fila, se ocuparan 6-->
+            <a asp-action="Create" class="btn btn-success text-white">Crear nuevo Audio</a><!--crear el boton Crear nuevo Audio que manda hacia Create-->
+        </div>
+    </div>
+    </div>
+
+    <br />
+    <br />
+    <div class="p-3"><!--pade, margen interior para que se vea con margen de 3 pixels hacia dentro-->
+        <table id="tblAudios" class="table table-striped table-bordered"  style="width:100%"><!--Tabla con id para que los datos puedan cargar-->
+            <thead>
+                <tr>
+                    <!--Encabezados de la Tabla-->
+                    <td>Id</td>
+                    <td>Nombre</td>
+                    <td>Fecha Creación</td>
+                    <td>Texto</td>
+                    <td>Idioma</td>
+                    <td>Género</td>
+                    <td>Ruta Audios</td>
+                    <td>Descripción</td>
+                    <td>Acciones</td>
+                </tr>
+            </thead>
+        </table>
+    </div>
+    <!--Llamando archivo .js utilizando ajax-->
+    @section Scripts{
+    <script src="~/js/audios.js"></script>
+}
